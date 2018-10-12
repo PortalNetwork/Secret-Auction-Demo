@@ -77,7 +77,7 @@ contract Auction {
     bidders[msg.sender].bidValue = _bidValue;
     if (!(bidders[msg.sender].hasBidded)) {
       bidders[msg.sender].hasBidded = true;
-      bidderAddresses.push(msg.sender);
+      bidderAddresses.push(msg.sender);// For the highest bidder computing
     }
     emit Bid(_bidValue);
   }
@@ -178,7 +178,7 @@ contract Auction {
   }
 
   /*
-   * Get the staked Ether amount for a given bidder.
+   * Get the addresses of all the bidders.
    */
   function getBidders() public view returns (address[]) {
     return bidderAddresses;

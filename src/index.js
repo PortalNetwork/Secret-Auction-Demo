@@ -21,17 +21,17 @@ const getEncryptedValue = async(value) =>{
 };
 
 const secretAuctionDemo = async() => {
-	let res;
+	// Initialize enigma configuration
 	let enigmaSetup = new EnigmaSetup();
 	await enigmaSetup.init();
 
 	const {web3, accounts} = enigmaSetup;
 	// Replace with your auctionFatcory address here
-	const auctionFactortContractAddress = "0x9BA12813B7Cc2E645193e9BD19Cfeb7d7277b8F0";
+	const auctionFactoryContractAddress = "0x9BA12813B7Cc2E645193e9BD19Cfeb7d7277b8F0";
 	const auctionFactory = await getContractInstance(
 		web3,
 		auctionFactoryContractDefinition,
-		auctionFactortContractAddress
+		auctionFactoryContractAddress
 	);
 
 	// Create new auction with expired time(in seconds) and starting price(in wei)
@@ -45,6 +45,7 @@ const secretAuctionDemo = async() => {
 	});
 	// Always use the latest auction address
 	const auctionAddress = addr[addr.length -1];
+	// Initialize contract instance to call contract later
 	const auction = await getContractInstance(
 			web3,
 			auctionContractDefinition,
@@ -52,12 +53,12 @@ const secretAuctionDemo = async() => {
 	);
 
 	// Bidders must stake tokens first which is greater than or equal to starting price  
-	res = await auction.stake({
+	await auction.stake({
 			from: accounts[0],
 			gas: GAS,
 			value: web3.utils.toWei("8000000","wei")
 	});
-	res = await auction.stake({
+	await auction.stake({
 			from: accounts[1],
 			gas: GAS,
 			value: web3.utils.toWei("9000000","wei")
@@ -93,7 +94,7 @@ const secretAuctionDemo = async() => {
 		stakeAmounts.push(await getEncryptedValue(stakeAmount.toNumber().toString()));
 	}
 
-	let blockNumber = await enigmaSetup.web3.eth.getBlockNumber();
+	let blockNumber = await web3.eth.getBlockNumber();
 	/*
 	Take special note of the arguments passed in here (blockNumber, dappContractAddress,
 	callable, callableArgs, callback, fee, preprocessors). This is the critical step for how
@@ -109,11 +110,11 @@ const secretAuctionDemo = async() => {
 		[]
 	);
 	let resultFee = await task.approveFee({
-		from: enigmaSetup.accounts[0],
+		from: accounts[0],
 		gas: GAS
 	});
 	let result = await task.compute({
-		from: enigmaSetup.accounts[0],
+		from: accounts[0],
 		gas: GAS
 	});
 
