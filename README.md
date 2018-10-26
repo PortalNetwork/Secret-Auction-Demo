@@ -2,34 +2,36 @@
 
 ### Start Docker
 
-```
+Clone Enigma docker from github repository.
+```bash
+git clone https://github.com/enigmampc/enigma-docker-network.git
 cd enigma-docker-network
 ./launch.bash -s
 ```
 
-### Copy Enigma to 2_deploy_millionaires_problem_factory.js
+Copy Enigma to `2_deploy_millionaires_problem_factory.js`
 ```
   Enigma: 0x767d422364eC67f71C148C47DE96F09ffDd6f367
 ```
 
-```
+```javascript
 // TODO: Update the enigma address
 const enigmaAddr = "0x767d422364eC67f71C148C47DE96F09ffDd6f367";
 ```
 
-### truffle migrate
+Using `darq-truffle` to migrate solidity source code to the development network
 
-```
+```bash
 cd Secret-Auction-Demo
 darq-truffle migrate --reset --network development
 ```
 
-### Copy auction factory address to index.js
+Copy auction factory address to `src/index.js`
 ```
 AuctionFactory: 0x7E4d7e0dfAb355d88bE20475B1a423C1F85048E7
 ```
 
-```
+```javascript
 // TODO: Replace with your AuctionFatcory address here
 const auctionFactoryContractAddress = "0x7E4d7e0dfAb355d88bE20475B1a423C1F85048E7";
 ```
@@ -38,7 +40,7 @@ Refer to [tutorial](https://github.com/PortalNetwork/enigma-ns/blob/master/docs/
 
 ### Install dependency
 
-- Preinstall: babel-node
+- Preinstall: babel-cli
 
 ```
 npm install --global babel-cli
@@ -52,7 +54,7 @@ babel-node src/index.js
 
 ### Result 
 
-```
+```bash
 registering principal 0x9F1419E9c80d3730c362e5912dC66Ad7AFB78828
 updating workers parameters with seed 71097
 network using random seed: 71097
