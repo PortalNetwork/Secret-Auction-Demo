@@ -40,7 +40,7 @@ const secretAuctionDemo = async() => {
 
 		console.log("==== 1. Setup enigma ====");
 		const {web3, accounts} = enigmaSetup;
-		// TODO: Replace with your auctionFatcory address here
+		// TODO: Replace with your AuctionFatcory address here
 		const auctionFactoryContractAddress = "0xe5AE972aE181ba926E6B8760ea9992F383654f34";
 		const auctionFactory = await getContractInstance(
 			web3,
